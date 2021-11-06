@@ -1,0 +1,68 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.back-face {
+    z-index: 0;
+}
+
+body {
+    display: flex;
+    height: 100vh; /* vh and vw correlate to 1% of the viewport height and width respectively. 100%vw = 100% of screen width */
+    background: gray;
+}
+
+.memory-game {
+    width: 640px;
+    height: 640px;
+    margin: auto;
+    display: flex; /* auto-properties: flex-item(flex: 1) flex-container(flex-directioN: row / flex-wrap: nowrap / justify-content: flex-start / align-items: stretch) */
+    perspective: 1000px; /* gives depth to the applied elements */
+    flex-wrap: wrap; /* this is natively set as nowrap, need to set to wrap so they wrap around the container */
+    border: 2px solid lime;
+}
+
+.memory-card {
+    width: calc(25% - 10px); /* stops the cards from overflowing from the container because of the 5px margin on either side */
+    height: calc(33.333% - 10px);
+    margin: 5px;
+    position: relative;
+    border: 2px solid blue;
+    transform: scale(1);
+    transform-style: preserve-3d; /* this will insert the memory card element into the 3d space inside the memory-game container (perspective) */
+    transition: transform .5s;
+}
+
+.memory-card:active {
+    transform: scale(.96); /* scales the elements of memory-card to 97% of their original size when clicked */
+    transition: transform .3s;
+}
+
+.flip {
+    transform: rotateY(180deg);
+} 
+
+img {
+    width: 100px; 
+}
+
+.front-face,
+.back-face {
+    position: absolute;  /* The position of the cards is ABSOLUTE in comparison to it's first ancestor that has it's position specified - here it is the memory card being the RELATIVE */
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    background: blue;
+    border: 2px solid deeppink;
+    backface-visibility:hidden; 
+}
+
+.front-face {
+    transform: rotateY(180deg);
+    z-index: 1;
+}
+
+
